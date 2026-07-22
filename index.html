@@ -54,8 +54,7 @@ function badge(pt,txt,bg,layer){L.marker([pt.lat,pt.lon],{zIndexOffset:1000,icon
 function drawTrip(key){
   var sL=L.layerGroup(), aL=L.layerGroup(), mL=L.layerGroup(), eL=L.layerGroup(); staticL[key]=sL; arrowL[key]=aL; milesL[key]=mL; endsL[key]=eL;
   L.polyline(D[key+'_route'],{color:lineC[key],weight:3,opacity:.9,smoothFactor:1}).addTo(sL);
-  D[key+'_track'].forEach(function(t){var fc=(t.v===1)?'#9b59b6':dotC[key], ec=(t.v===1)?'#6c3483':edgeC[key];
-    L.circleMarker([t.lat,t.lon],{radius:t.v?6:4,color:ec,weight:1,fillColor:fc,fillOpacity:.95}).bindPopup('<b>'+(t.p||'?')+'</b><br>'+t.d).addTo(sL); b.push([t.lat,t.lon]);});
+  D[key+'_track'].forEach(function(t){b.push([t.lat,t.lon]);});
   placeMiles(key,mL);
   var T=D[key+'_track']; if(T.length){badge(T[0],'▶ START','#2e7d32',eL); badge(T[T.length-1],'■ END','#c0392b',eL);}
   placeArrows(key,50);
@@ -67,9 +66,19 @@ D.oldp.forEach(function(p){var r=Math.max(6,Math.min(30,Math.sqrt(p.n)*1.1));
   L.circleMarker([p.lat,p.lon],{radius:r,color:'#161',weight:1,fillColor:'#27ae60',fillOpacity:.5}).bindPopup('<b>'+p.t+'</b><br>'+p.n+' mentions · 2011–2015').addTo(textL);});
 D.s7.forEach(function(p){L.circleMarker([p.lat,p.lon],{radius:3,color:'#0e6655',weight:1,fillColor:'#16a085',fillOpacity:.85}).bindPopup('<b>S7 · '+p.d+'</b>').addTo(s7L); b.push([p.lat,p.lon]);});
 ['brown','gold','blue','move','nola','utah'].forEach(drawTrip);
-// data layers start OFF; user toggles what they want
-L.control.layers({'Streets (with roads)':bStreets,'Faint roads + interstates':bMinimal,'Labels only — no roads':bLabels},{'State lines':statesLayer,'Heatmap (all photos)':heat,'Photo places 2018+':photoL,'Text places 2011-15':textL,'📷 S7 photos 2016–18':s7L,
-  '🟤 Zion Trip 2020':tripL.brown,'🟠 Covid Road Trip 2020':tripL.gold,'🔵 Maryland→WA':tripL.blue,'🔷 Seattle→Austin move 2024':tripL.move,'🟣 New Orleans trip 2013':tripL.nola,'🩵 Utah Thanksgiving 2019':tripL.utah},{collapsed:false}).addTo(map);
+// heatmap + all six trips on by default; place layers stay off until toggled
+heat.addTo(map);
+['brown','gold','blue','move','nola','utah'].forEach(function(k){tripL[k].addTo(map);});
+// swatches use each trip's real line colour — no emoji circle exists for teal
+function tl(key,txt){return '<span class="lg" style="background:'+lineC[key]+'"></span>'+txt;}
+var over={'State lines':statesLayer,'Heatmap (all photos)':heat,'Photo places 2018+':photoL,'Text places 2011-15':textL,'📷 S7 photos 2016–18':s7L};
+over[tl('brown','Zion Trip 2020')]=tripL.brown;
+over[tl('gold','Covid Road Trip 2020')]=tripL.gold;
+over[tl('blue','Maryland→WA')]=tripL.blue;
+over[tl('move','Seattle→Austin move 2024')]=tripL.move;
+over[tl('nola','New Orleans trip 2013')]=tripL.nola;
+over[tl('utah','Utah Thanksgiving 2019')]=tripL.utah;
+L.control.layers({'Streets (with roads)':bStreets,'Faint roads + interstates':bMinimal,'Labels only — no roads':bLabels},over,{collapsed:false}).addTo(map);
 document.getElementById('sp').addEventListener('input',function(){
   var s=+this.value; document.getElementById('sv').textContent=s;
   ['brown','gold','blue','move','nola','utah'].forEach(function(k){arrowL[k].clearLayers(); placeArrows(k,s);});
