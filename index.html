@@ -23,7 +23,7 @@ body.panels-off #ctrl,body.panels-off #legend,body.panels-off .leaflet-control-l
  #panelbtn{padding:11px 14px;font-size:14px}
 }</style>
 </head><body><div id="map"></div>
-<div id="ctrl">Arrow spacing: <b><span id="sv">50</span> mi</b> &nbsp;<input id="sp" type="range" min="25" max="500" step="25" value="50"><label><input id="mk" type="checkbox"> mile markers</label><label><input id="se" type="checkbox"> start/end</label></div>
+<div id="ctrl">Arrow spacing: <b><span id="sv">100</span> mi</b> &nbsp;<input id="sp" type="range" min="25" max="500" step="25" value="100"><label><input id="mk" type="checkbox"> mile markers</label><label><input id="se" type="checkbox"> start/end</label></div>
 <div id="legend"><b>Eric's Travels</b><br>
 <span class="lg" style="background:#e74c3c"></span>places · photos<br>
 <span class="lg" style="background:#27ae60"></span>places · texts<br>
@@ -68,7 +68,7 @@ function drawTrip(key){
   D[key+'_track'].forEach(function(t){b.push([t.lat,t.lon]);});
   placeMiles(key,mL);
   var T=D[key+'_track']; if(T.length){badge(T[0],'▶ START','#2e7d32',eL); badge(T[T.length-1],'■ END','#c0392b',eL);}
-  placeArrows(key,50);
+  placeArrows(key,100);
   tripL[key]=L.layerGroup([sL,aL]); // mL/eL stay detached until their checkbox is ticked
 }
 D.places.forEach(function(p){var r=Math.max(5,Math.min(36,Math.sqrt(p.n)*1.6));
