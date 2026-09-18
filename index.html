@@ -28,12 +28,12 @@ body.panels-off #ctrl,body.panels-off #legend,body.panels-off .leaflet-control-l
 <span class="lg" style="background:#e74c3c"></span>places · photos<br>
 <span class="lg" style="background:#27ae60"></span>places · texts<br>
 <span class="lg" style="background:#16a085"></span>S7 photos<br>
-<span class="ln" style="background:#5d4037"></span>Zion Trip — 1,714 mi<br>
-<span class="ln" style="background:#f39c12"></span>Covid Road Trip — 9,776 mi<br>
-<span class="ln" style="background:#2980b9"></span>Maryland→WA — 2,775 mi<br>
-<span class="ln" style="background:#1a237e"></span>Seattle→Austin move — 5,239 mi<br>
-<span class="ln" style="background:#8e44ad"></span>New Orleans road trip — 3,682 mi<br>
-<span class="ln" style="background:#00838f"></span>Utah · Thanksgiving — 2,390 mi<br>
+<span class="ln" style="background:#5d4037"></span>Zion Trip - 1,714 mi<br>
+<span class="ln" style="background:#f39c12"></span>Covid Road Trip - 9,776 mi<br>
+<span class="ln" style="background:#2980b9"></span>Maryland→WA - 2,775 mi<br>
+<span class="ln" style="background:#1a237e"></span>Seattle→Austin move - 5,239 mi<br>
+<span class="ln" style="background:#8e44ad"></span>New Orleans road trip - 3,682 mi<br>
+<span class="ln" style="background:#00838f"></span>Utah · Thanksgiving - 2,390 mi<br>
 <span id="mnote" style="color:#888;font-size:12px;display:none">numbers = miles into trip (every 200)</span></div>
 <button id="panelbtn" type="button">Hide panels</button>
 <script>
@@ -72,17 +72,17 @@ function drawTrip(key){
   tripL[key]=L.layerGroup([sL,aL]); // mL/eL stay detached until their checkbox is ticked
 }
 D.places.forEach(function(p){var r=Math.max(5,Math.min(36,Math.sqrt(p.n)*1.6));
-  L.circleMarker([p.lat,p.lon],{radius:r,color:'#922',weight:1,fillColor:'#e74c3c',fillOpacity:.45}).bindPopup('<b>'+p.t+'</b><br>'+p.n+' photos<br>'+p.a+' – '+p.b).addTo(photoL); b.push([p.lat,p.lon]);});
+  L.circleMarker([p.lat,p.lon],{radius:r,color:'#922',weight:1,fillColor:'#e74c3c',fillOpacity:.45}).bindPopup('<b>'+p.t+'</b><br>'+p.n+' photos<br>'+p.a+' - '+p.b).addTo(photoL); b.push([p.lat,p.lon]);});
 D.oldp.forEach(function(p){var r=Math.max(6,Math.min(30,Math.sqrt(p.n)*1.1));
-  L.circleMarker([p.lat,p.lon],{radius:r,color:'#161',weight:1,fillColor:'#27ae60',fillOpacity:.5}).bindPopup('<b>'+p.t+'</b><br>'+p.n+' mentions · 2011–2015').addTo(textL);});
+  L.circleMarker([p.lat,p.lon],{radius:r,color:'#161',weight:1,fillColor:'#27ae60',fillOpacity:.5}).bindPopup('<b>'+p.t+'</b><br>'+p.n+' mentions · 2011-2015').addTo(textL);});
 D.s7.forEach(function(p){L.circleMarker([p.lat,p.lon],{radius:3,color:'#0e6655',weight:1,fillColor:'#16a085',fillOpacity:.85}).bindPopup('<b>S7 · '+p.d+'</b>').addTo(s7L); b.push([p.lat,p.lon]);});
 ['brown','gold','blue','move','nola','utah'].forEach(drawTrip);
 // heatmap + all six trips on by default; place layers stay off until toggled
 heat.addTo(map);
 ['brown','gold','blue','move','nola','utah'].forEach(function(k){tripL[k].addTo(map);});
-// swatches use each trip's real line colour — no emoji circle exists for teal
+// swatches use each trip's real line colour - no emoji circle exists for teal
 function tl(key,txt){return '<span class="lg" style="background:'+lineC[key]+'"></span>'+txt;}
-var over={'State lines':statesLayer,'Heatmap (all photos)':heat,'Photo places 2018+':photoL,'Text places 2011-15':textL,'📷 S7 photos 2016–18':s7L};
+var over={'State lines':statesLayer,'Heatmap (all photos)':heat,'Photo places':photoL,'Text places':textL,'📷 S7 photos':s7L};
 over[tl('brown','Zion Trip')]=tripL.brown;
 over[tl('gold','Covid Road Trip')]=tripL.gold;
 over[tl('blue','Maryland→WA')]=tripL.blue;
@@ -90,7 +90,7 @@ over[tl('move','Seattle→Austin move')]=tripL.move;
 over[tl('nola','New Orleans trip')]=tripL.nola;
 over[tl('utah','Utah Thanksgiving')]=tripL.utah;
 // on phones the layer list is collapsed to its icon so it doesn't eat the screen
-L.control.layers({'Streets (with roads)':bStreets,'Faint roads + interstates':bMinimal,'Labels only — no roads':bLabels},over,{collapsed:window.innerWidth<700}).addTo(map);
+L.control.layers({'Streets (with roads)':bStreets,'Faint roads + interstates':bMinimal,'Labels only - no roads':bLabels},over,{collapsed:window.innerWidth<700}).addTo(map);
 // hide/show every overlay panel (controls, legend, layer list) with one button
 (function(){var btn=document.getElementById('panelbtn');
   function paint(){var off=document.body.classList.contains('panels-off');btn.textContent=off?'Show panels':'Hide panels';}
