@@ -25,15 +25,15 @@ body.panels-off #ctrl,body.panels-off #legend,body.panels-off .leaflet-control-l
 </head><body><div id="map"></div>
 <div id="ctrl">Arrow spacing: <b><span id="sv">50</span> mi</b> &nbsp;<input id="sp" type="range" min="25" max="500" step="25" value="50"><label><input id="mk" type="checkbox"> mile markers</label><label><input id="se" type="checkbox"> start/end</label></div>
 <div id="legend"><b>Eric's Travels</b><br>
-<span class="lg" style="background:#e74c3c"></span>places · photos (2018–now)<br>
-<span class="lg" style="background:#27ae60"></span>places · texts (2011–2015)<br>
-<span class="lg" style="background:#16a085"></span>S7 photos (2016–18)<br>
+<span class="lg" style="background:#e74c3c"></span>places · photos<br>
+<span class="lg" style="background:#27ae60"></span>places · texts<br>
+<span class="lg" style="background:#16a085"></span>S7 photos<br>
 <span class="ln" style="background:#5d4037"></span>Zion Trip — 1,714 mi<br>
 <span class="ln" style="background:#f39c12"></span>Covid Road Trip — 9,776 mi<br>
 <span class="ln" style="background:#2980b9"></span>Maryland→WA — 2,775 mi<br>
 <span class="ln" style="background:#1a237e"></span>Seattle→Austin move — 5,239 mi<br>
-<span class="ln" style="background:#8e44ad"></span>New Orleans road trip (2013) — 3,682 mi<br>
-<span class="ln" style="background:#00838f"></span>Utah · Thanksgiving (2019) — 2,390 mi<br>
+<span class="ln" style="background:#8e44ad"></span>New Orleans road trip — 3,682 mi<br>
+<span class="ln" style="background:#00838f"></span>Utah · Thanksgiving — 2,390 mi<br>
 <span id="mnote" style="color:#888;font-size:12px;display:none">numbers = miles into trip (every 200)</span></div>
 <button id="panelbtn" type="button">Hide panels</button>
 <script>
@@ -83,12 +83,12 @@ heat.addTo(map);
 // swatches use each trip's real line colour — no emoji circle exists for teal
 function tl(key,txt){return '<span class="lg" style="background:'+lineC[key]+'"></span>'+txt;}
 var over={'State lines':statesLayer,'Heatmap (all photos)':heat,'Photo places 2018+':photoL,'Text places 2011-15':textL,'📷 S7 photos 2016–18':s7L};
-over[tl('brown','Zion Trip 2020')]=tripL.brown;
-over[tl('gold','Covid Road Trip 2020')]=tripL.gold;
+over[tl('brown','Zion Trip')]=tripL.brown;
+over[tl('gold','Covid Road Trip')]=tripL.gold;
 over[tl('blue','Maryland→WA')]=tripL.blue;
-over[tl('move','Seattle→Austin move 2024')]=tripL.move;
-over[tl('nola','New Orleans trip 2013')]=tripL.nola;
-over[tl('utah','Utah Thanksgiving 2019')]=tripL.utah;
+over[tl('move','Seattle→Austin move')]=tripL.move;
+over[tl('nola','New Orleans trip')]=tripL.nola;
+over[tl('utah','Utah Thanksgiving')]=tripL.utah;
 // on phones the layer list is collapsed to its icon so it doesn't eat the screen
 L.control.layers({'Streets (with roads)':bStreets,'Faint roads + interstates':bMinimal,'Labels only — no roads':bLabels},over,{collapsed:window.innerWidth<700}).addTo(map);
 // hide/show every overlay panel (controls, legend, layer list) with one button
